@@ -13,22 +13,22 @@ import com.cursoJava.Curso.entities.Category;
 import com.cursoJava.Curso.services.CategoryService;
 
 @RestController
+//Caminho que chamará essa classe
 @RequestMapping(value = "/categories")
 public class CategoryResource {
 
 	@Autowired
 	private CategoryService service;
-	
+
 	@GetMapping
 	public ResponseEntity<List<Category>> findAll() {
 		List<Category> list = service.findAll();
-		
 		return ResponseEntity.ok().body(list);
 	}
-	
-	
+
+	//Pegar caminho somente do ID respectivo
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Category> findById(@PathVariable Long id){
+	public ResponseEntity<Category> findById(@PathVariable Long id) {
 		Category obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
