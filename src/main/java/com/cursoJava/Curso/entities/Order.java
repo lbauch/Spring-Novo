@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.time.Instant;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,15 +16,24 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "tb_order")
-public class Order implements Serializable{
+public class Order implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant moment;
-	
+
+	/*
+	 * Json Ignore deve estar em um dos lados, para que o arquivo não entre em Loop.
+	 * Caso esteja em Order, ao listar as ordens, não aparece o cliente respectivo,
+	 * mas ao listar o cliente, aparece o array de ordens. Caso a anotation
+	 * JsonIgnore estiver em User, ao chamar a ordem, mostra a qual cliente se
+	 * refere, e no cliente não mostra o array.
+	 */
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private User client;
@@ -33,9 +44,9 @@ public class Order implements Serializable{
 		this.moment = moment;
 		this.client = client;
 	}
-	
+
 	public Order() {
-		
+
 	}
 
 	public Long getId() {
@@ -78,6 +89,5 @@ public class Order implements Serializable{
 		Order other = (Order) obj;
 		return Objects.equals(id, other.id);
 	}
-	
-	
+
 }
