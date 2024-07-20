@@ -1,0 +1,35 @@
+caso abra o git VIM (informação incompleta - git do linux):
+
+i    (abre o comando de edição --INSERT--)
+
+-- salva as alterações
+<ESC>   (TECLA)
+:wq     (write quit)
+<ENTER>   (TECLA)
+
+-- quit sem salvar
+<ESC>   (TECLA)
+:q!     (quit sem salvar)
+<ENTER>   (TECLA)
+
+
+
+-- desfazer o último commit SEM DELETAR AS MODIFICAÇÕES
+git reset --soft HEAD~1
+
+-- desfazer as alterações após determinado commit
+git reset --hard <código do commit>
+git reset --hard HEAD~1 (volta para o commit anterior)
+
+
+git log mostra o histórico de commits
+
+
+
+
+-- atualizar repositório local em relação ao remoto
+
+git pull <nome do remote> <nome do branch>
+normalmente: git pull origin main
+
+git status - verifica status
